@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  web:
+    build: . 
+    command: python /code/manage.py runserver 0.0.0.0:8000
+  #  command: gunicorn food3_project.wsgi -b 0.0.0.0:8000 
+  #  environment:
+  #    - ENVIROMENT=development
+  #    - SECRET_KEY=bws$$n+6#(5w!zu3z6(=x=_(g78mtm**#61q&zqf$$3j90q1earashjamali001llmmaster%^&*=12345!@#$$%
+  #    - DEBUG=1
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+  db:
+    image: postgres:11
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_PASSWORD: postgres
+volumes:
+  postgres_data:
