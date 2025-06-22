@@ -1,0 +1,28 @@
+<!-- templates/blog_detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block site_title_link %} 
+<span class="title">Blog*</span>
+{% endblock %}
+
+{% block content %}
+    <h1 class="major">{{ blog.title }}</h1>
+
+    {% if locked %}
+        <p>{{ object.teaser }}</p>
+        <div class="overlay">
+            <p>This is a premium post. <a href="{% url 'login' %}">Log in</a> or <a href="#">Subscribe</a> to read more.</p>
+        </div>
+    {% else %}
+        <p>{{ blog.content|linebreaks }}</p>
+
+        {% if blog.image %}
+            <span class="image center">
+                <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+            </span>
+        {% endif %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,59 @@
+<!-- templates/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Site{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <noscript><link rel="stylesheet" href="{% static '/css/noscript.css' %}" /></noscript>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        {% block site_title_link %} {# This is the block you created #}
+           <span class="title">Arash Jamali*</span>
+        {% endblock %}
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main Content -->
+        <section id="main" class="wrapper">
+            <div class="inner">
+                {% block content %}
+                <!-- Page specific content goes here -->
+                {% endblock %}
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="wrapper alt">
+        <div class="inner">
+            <ul class="menu">
+                <li>*This website's content reflects my personal views and not necessarily those of my employer.</li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrollex.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
+    <script src="{% static 'js/browser.min.js' %}"></script>
+    <script src="{% static 'js/breakpoints.min.js' %}"></script>
+    <script src="{% static 'js/util.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+</html>

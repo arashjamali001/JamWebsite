@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}The list of projects{% endblock %}
+
+{% block site_title_link %} {# This is the block you created #}
+<span class="title">Project*</span>
+{% endblock %}
+
+{% block content %}
+    <header class="major">
+        <h1>The List of Projects</h1>
+        <p>A comprehensive list of my public projects.</p>
+    </header>
+
+    <div class="features"> {# Reusing your .features class for a grid-like layout #}
+        {% for project in projects %} {# Assuming your ListView's context_object_name is 'all_projects' #}
+        <section>
+            {# If you have project-specific icons or images, you can use them here #}
+            {# For now, let's use a generic icon or assume you might add an image field to your Project model #}
+            <span class="icon solid major fa-folder"></span> {# Generic icon, change as needed #}
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.description }}</p> {# Or project.summary, project.excerpt #}
+            <ul class="actions">
+                <li><a href="{% url 'project_detail' project.slug %}" class="button small">Learn More</a></li>
+            </ul>
+        </section>
+        {% empty %}
+        <p>No projects found yet. Please check back later!</p>
+        {% endfor %}
+    </div>
+
+    {# Optional: Add pagination if you have many projects #}
+    {% if is_paginated %}
+    <div class="pagination">
+        <ul class="actions">
+            {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}" class="button">Previous</a></li>
+            {% endif %}
+            <li><span class="button disabled">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}" class="button">Next</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    {% endif %}
+
+{% endblock %}

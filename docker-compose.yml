@@ -5,10 +5,10 @@ services:
     build: . 
     command: python /code/manage.py runserver 0.0.0.0:8000
   #  command: gunicorn food3_project.wsgi -b 0.0.0.0:8000 
-  #  environment:
+    environment:
   #    - ENVIROMENT=development
-  #    - SECRET_KEY=bws$$n+6#(5w!zu3z6(=x=_(g78mtm**#61q&zqf$$3j90q1earashjamali001llmmaster%^&*=12345!@#$$%
-  #    - DEBUG=1
+      - SECRET_KEY=django-insecure-oi_kku2jz341j)t7-tn44cjm6@svl*#**$$i5dh0m5#$$%q)bla
+      - DEBUG=1
     volumes:
       - .:/code
     ports:

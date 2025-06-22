@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!-- saved from url=(0050)file:///P:/Website/html5up-hyperspace/generic.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title> project1  </title>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+		<noscript><link rel="stylesheet" href="{% static 'css/noscript.css' %}" /></noscript>
+	</head>
+	<body class="">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="{% url 'home' %}" class="title">Arash Jamali </Project-1></a>
+				<nav>
+					<ul>
+						<li><a href="{% url 'home' %}">Home</a></li>
+<!-- 						<li><a href="file:///P:/Website/html5up-hyperspace/generic.html" class="active">Generic</a></li>
+						<li><a href="file:///P:/Website/html5up-hyperspace/elements.html">Elements</a></li> -->
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major"> 
+								Developed a physical model for a Fluid Dynamics Modeling Software </h1>
+							<p> 
+<!-- 								Scientific computer programs represent one of the earliest instances where software was 
+								employed to enhance our productivity.  -->
+								Computational Fluid Dynamics (CFD) software comprises both physical and mathematical models to simulate fluid dynamics phenomena.
+								Physical models describe the real-world behavior of fluids and mathematical models provide the numerical framework for solving 
+								the fluid dynamics equations. It is common to develop a physical or mathematical model for a CFD software during a Ph.D. degree program. 
+							</p>
+							<p>
+								A commercial-grade CFD software consists of hundreds of subroutines, each containing thousands of lines of code, which can be 
+								overwhelming for new engineers. I developed a physical model that fill the gap between a detailed yet expensive model 
+								and quicker but less accurate model. The model was then integrated into a CPU-parallel CFD software. I won't dive into 
+								the technical nitty-gritty, but basically, the model mimics combustion kinetics of real fuels with a simple chemical kinetics mechanism.
+								This approach offers enhanced insights into actual fuel combustion with minimal computational overhead. 
+								that comprehensively covers a significant part of this undertaking.
+								
+ 
+								     
+							</p>
+							<span class="image center"><img src="./images/pr1fig1.jpg" alt=""></span>
+
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>© AJ. All rights reserved.</li><li>Design: <a href="http://html5up.net/">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+		<script src="{% static 'js/jquery.min.js' %}"></script>
+		<script src="{% static 'js/jquery.scrollex.min.js' %}"></script>
+		<script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
+		<script src="{% static 'js/browser.min.js' %}"></script>
+		<script src="{% static 'js/breakpoints.min.js' %}"></script>
+		<script src="{% static 'js/util.js' %}"></script>
+		<script src="{% static 'js/main.js' %}"></script>
+
+	
+</body></html>

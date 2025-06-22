@@ -1,16 +1,33 @@
 # Pull base image
-From python:3.11
+From python:3.11-slim
 
-#set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Install system dependencies required for Pillow and other common packages
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    gcc \
+    python3-dev \
+    libjpeg-dev \
+    zlib1g-dev \
+    libpng-dev \
+    libfreetype6-dev \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-#set work directory
+# Set working directory
 WORKDIR /code
 
-# Install dependencies
-COPY Pipfile Pipfile.lock /code/
-RUN pip install pipenv && pipenv install --system
+# Install pipenv
+RUN pip install pipenv
 
-# copy project
-COPY . /code/
+# Copy Pipenv files first for better caching
+COPY Pipfile .
+COPY Pipfile.lock .
+
+# Install dependencies using pipenv
+RUN pipenv install --deploy --system
+
+# Copy the rest of your project
+COPY . .
+
+# Default command (you can override in docker-compose.yml)
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

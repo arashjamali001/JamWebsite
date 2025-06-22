@@ -1,0 +1,20 @@
+<!-- templates/project_detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }}{% endblock %}
+{% block site_title_link %} {# This is the block you created #}
+<span class="title">Project*</span>
+{% endblock %}
+
+{% block content %}
+    <h1 class="major">{{ project.title }}</h1>
+    {% comment %} <p>{{ project.description }}</p> {% endcomment %}
+    <p>{{ project.content|linebreaks }}</p>
+
+    {% if project.image %}
+        <span class="image center">
+            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+        </span>
+    {% endif %}
+{% endblock %}
