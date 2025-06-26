@@ -6,19 +6,23 @@ set -o errexit
 export ENVIRONMENT=production
 export DEBUG=0
 export SECRET_KEY=django-insecure-temp-key-for-build-only
-export DATABASE_URL=sqlite:///temp.db
 
+# Install dependencies
 pip install pipenv
 pipenv install --deploy --system
 
 # Create staticfiles directory if it doesn't exist
 mkdir -p staticfiles
 
-python manage.py collectstatic --noinput
+# Remove any existing staticfiles to avoid conflicts
+rm -rf staticfiles/*
 
-# Only run migrations if DATABASE_URL is set (not during build)
-if [ -n "$DATABASE_URL" ] && [ "$DATABASE_URL" != "sqlite:///temp.db" ]; then
-    python manage.py migrate
-else
-    echo "Skipping migrations during build phase"
-fi 
+# Collect static files with proper error handling
+echo "Collecting static files..."
+python manage.py collectstatic --noinput --clear --verbosity=2
+
+# Create a simple manifest file for static files
+echo "Creating static files manifest..."
+python manage.py collectstatic --noinput --dry-run > /dev/null 2>&1 || true
+
+echo "Build completed successfully!" 

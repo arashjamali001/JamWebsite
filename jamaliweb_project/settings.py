@@ -90,13 +90,18 @@ DATABASES = {
 # Update database configuration from $DATABASE_URL if available (for production)
 DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
-    # Parse the DATABASE_URL and update the default database
-    DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
-    # Ensure SSL is required for external databases
-    if 'sslmode' not in DATABASES['default']:
-        DATABASES['default']['OPTIONS'] = {
-            'sslmode': 'require'
-        }
+    try:
+        # Parse the DATABASE_URL and update the default database
+        DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
+        # Ensure SSL is required for external databases
+        if 'postgresql' in DATABASES['default']['ENGINE']:
+            DATABASES['default']['OPTIONS'] = {
+                'sslmode': 'require'
+            }
+    except Exception as e:
+        print(f"Error parsing DATABASE_URL: {e}")
+        # Fall back to default SQLite configuration
+        pass
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -143,7 +148,13 @@ STATICFILES_FINDERS = [
 ]
 
 # WhiteNoise configuration
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+if ENVIRONMENT == 'production':
+    STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
+    # Add WhiteNoise configuration
+    WHITENOISE_USE_FINDERS = True
+    WHITENOISE_AUTOREFRESH = True
+else:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
