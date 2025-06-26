@@ -10,6 +10,10 @@ echo "Running migrations..."
 python manage.py migrate --noinput
 echo "Migrations completed."
 
+# Test migrations specifically
+echo "Testing migrations..."
+python test_migrations.py
+
 # Collect static files if needed
 echo "Collecting static files..."
 python manage.py collectstatic --noinput --clear
