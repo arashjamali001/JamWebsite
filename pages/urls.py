@@ -6,6 +6,7 @@ from .views import (
     BlogDetailView,
     BlogListView,
     ProjectListView,
+    health_check,
 )
 
 urlpatterns = [
@@ -15,4 +16,5 @@ urlpatterns = [
     path('projects/<slug:slug>/', ProjectDetailView.as_view(), name='project_detail'),
     path('blogs/<slug:slug>/', BlogDetailView.as_view(), name='blog_detail'),
     path('blogs/', BlogListView.as_view(), name='blog_list'),
+    path('health/', health_check, name='health_check'),
 ]   

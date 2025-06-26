@@ -1,7 +1,26 @@
 from django.views.generic import TemplateView
-
+from django.http import JsonResponse
 from django.views.generic import DetailView,ListView
 from .models import Project, Blog
+
+
+def health_check(request):
+    """Simple health check endpoint"""
+    try:
+        # Test database connection
+        project_count = Project.objects.count()
+        blog_count = Blog.objects.count()
+        return JsonResponse({
+            'status': 'healthy',
+            'database': 'connected',
+            'project_count': project_count,
+            'blog_count': blog_count
+        })
+    except Exception as e:
+        return JsonResponse({
+            'status': 'unhealthy',
+            'error': str(e)
+        }, status=500)
 
 
 class HomePageView(TemplateView):
