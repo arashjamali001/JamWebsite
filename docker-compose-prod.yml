@@ -8,7 +8,6 @@ services:
       - ENVIRONMENT=production
       - SECRET_KEY=django-insecure-oi_kku2jz341j)t7-tn44cjm6@svl*#**$$i5dh0m5#$$%q)bla
       - DEBUG=0
-      - SECURE_SSL_REDIRECT=False
     volumes:
       - .:/code
     ports:

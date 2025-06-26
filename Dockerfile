@@ -29,9 +29,6 @@ RUN pipenv install --deploy --system
 # Copy the rest of your project
 COPY . .
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
-
 # Expose port
 EXPOSE 8000
 

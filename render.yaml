@@ -1,10 +1,10 @@
 services:
   - type: web
     name: jamaliweb
-    env: docker
+    env: python
     plan: starter
-    dockerfilePath: ./Dockerfile
-    dockerCommand: pipenv run gunicorn jamaliweb_project.wsgi:application -b 0.0.0.0:$PORT
+    buildCommand: ./build.sh
+    startCommand: gunicorn jamaliweb_project.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: ENVIRONMENT
         value: production
@@ -16,8 +16,6 @@ services:
         fromDatabase:
           name: jamaliweb-db
           property: connectionString
-    buildCommand: pipenv install --deploy --system
-    startCommand: pipenv run gunicorn jamaliweb_project.wsgi:application -b 0.0.0.0:$PORT
 
 databases:
   - name: jamaliweb-db
