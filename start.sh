@@ -10,6 +10,10 @@ else
     echo "WARNING: DATABASE_URL is not set!"
 fi
 
+# Run debug script
+echo "Running database debug script..."
+python debug_db.py
+
 # Test database connection
 echo "Testing database connection..."
 python test_db.py

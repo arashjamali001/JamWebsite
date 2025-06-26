@@ -2,24 +2,42 @@ from django.views.generic import TemplateView
 from django.http import JsonResponse
 from django.views.generic import DetailView,ListView
 from .models import Project, Blog
+import os
 
 
 def health_check(request):
     """Simple health check endpoint"""
     try:
+        # Get database configuration info
+        from django.conf import settings
+        db_info = {
+            'engine': settings.DATABASES['default']['ENGINE'],
+            'name': settings.DATABASES['default'].get('NAME', 'N/A'),
+            'host': settings.DATABASES['default'].get('HOST', 'N/A'),
+            'port': settings.DATABASES['default'].get('PORT', 'N/A'),
+        }
+        
         # Test database connection
         project_count = Project.objects.count()
         blog_count = Blog.objects.count()
+        
         return JsonResponse({
             'status': 'healthy',
             'database': 'connected',
+            'database_info': db_info,
             'project_count': project_count,
-            'blog_count': blog_count
+            'blog_count': blog_count,
+            'environment': os.environ.get('ENVIRONMENT', 'unknown'),
+            'debug': settings.DEBUG
         })
     except Exception as e:
+        import traceback
         return JsonResponse({
             'status': 'unhealthy',
-            'error': str(e)
+            'error': str(e),
+            'traceback': traceback.format_exc(),
+            'environment': os.environ.get('ENVIRONMENT', 'unknown'),
+            'database_url_set': bool(os.environ.get('DATABASE_URL'))
         }, status=500)
 
 

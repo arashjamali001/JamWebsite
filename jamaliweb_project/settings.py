@@ -79,21 +79,24 @@ WSGI_APPLICATION = 'jamaliweb_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# Default database configuration (for development)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432 ,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
-# Update database configuration from $DATABASE_URL if available
+# Update database configuration from $DATABASE_URL if available (for production)
 DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
+    # Parse the DATABASE_URL and update the default database
     DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
+    # Ensure SSL is required for external databases
+    if 'sslmode' not in DATABASES['default']:
+        DATABASES['default']['OPTIONS'] = {
+            'sslmode': 'require'
+        }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
