@@ -6,6 +6,10 @@ echo "Starting application..."
 python manage.py migrate 
 echo "Migrations completed."
 
+#collect static files
+echo "collecting static files ..."
+python manage.py collectstatic --noinput
+
 
 # Run debug script
 echo "Running database debug script..."
