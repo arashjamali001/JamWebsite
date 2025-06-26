@@ -2,13 +2,10 @@
 
 echo "Starting application..."
 
-# Check if DATABASE_URL is set
-if [ -n "$DATABASE_URL" ]; then
-    echo "DATABASE_URL is set, running migrations..."
-    python manage.py migrate
-else
-    echo "WARNING: DATABASE_URL is not set!"
-fi
+
+python manage.py migrate 
+echo "Migrations completed."
+
 
 # Run debug script
 echo "Running database debug script..."
