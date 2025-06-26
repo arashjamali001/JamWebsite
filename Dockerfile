@@ -29,5 +29,11 @@ RUN pipenv install --deploy --system
 # Copy the rest of your project
 COPY . .
 
-# Default command (you can override in docker-compose.yml)
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
+# Expose port
+EXPOSE 8000
+
+# Default command for Render
+CMD gunicorn jamaliweb_project.wsgi:application --bind 0.0.0.0:$PORT

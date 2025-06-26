@@ -13,4 +13,4 @@ i should be in "base" environment for start the docker.
 it seems i have been in "base" conda environment when I used pipenv for insatlling dependencies
 it is not a good practice but as everything kinda works i keep doing so.
 As I had to remake imgae  all database is gone and need to remake superuser.
-
+on jun 23, ready for production, however need to take care of allowed_HOSTS later
